@@ -3,7 +3,6 @@ import cv2, PIL
 from cv2 import aruco
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from aruco_utils import mm2pixel
 
 def mm2pixel(mm):
     test_pixel = 603
@@ -11,7 +10,7 @@ def mm2pixel(mm):
     return int(mm*test_pixel/exp_mm)
 
 aruco_dict = aruco.getPredefinedDictionary(aruco.DICT_4X4_1000)
-w, h = 1920, 1400
+w, h = 1920, 1400 # good for letter size paper
 board = np.ones((h, w))*255
 gap = 75
 mSize = mm2pixel(90) 

@@ -2,14 +2,15 @@ import numpy as np
 import cv2.aruco as aruco
 import cv2, time
 
+aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_1000)
+parameters = cv2.aruco.DetectorParameters()
+detector = cv2.aruco.ArucoDetector(aruco_dict, parameters)
 
-aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_1000)
-arucoParameters = aruco.DetectorParameters_create()
 
-cap = cv2.VideoCapture(2)
+cap = cv2.VideoCapture(0)
 # cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 # cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-cap.set(cv2.CAP_PROP_FPS, 120)
+cap.set(cv2.CAP_PROP_FPS, 30)
 
 while(True):
     s = time.time()
@@ -17,7 +18,7 @@ while(True):
     ret, frame = cap.read()
     # Our operations on the frame come here
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=arucoParameters)
+    corners, ids, rejectedImgPoints = detector.detectMarkers(gray)
     print(time.time() - s)
     print(ids)
     print(corners)
